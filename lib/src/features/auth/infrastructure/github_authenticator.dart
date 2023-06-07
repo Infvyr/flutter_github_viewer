@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_github_viewer/core/infrastructure/dio_extensions.dart';
 import 'package:flutter_github_viewer/core/shared/codecs.dart';
 import 'package:flutter_github_viewer/src/features/auth/domain/auth_failure.dart';
 import 'package:flutter_github_viewer/src/features/auth/infrastructure/credentials_storage/credentials_storage.dart';
@@ -33,7 +32,8 @@ class GithubAuthenticator {
       final storedCredentials = await _credentialsStorage.read();
       if (storedCredentials != null) {
         if (storedCredentials.canRefresh && storedCredentials.isExpired) {
-          // TODO: Refresh the credentials
+          final failureOrCredentials = await refresh(storedCredentials);
+          return failureOrCredentials.fold((l) => null, (r) => r);
         }
       }
       return storedCredentials;
@@ -94,10 +94,9 @@ class GithubAuthenticator {
           ),
         );
       } on DioError catch (e) {
-        if (e.type == DioErrorType.connectionError &&
-            e.error is SocketException) {
+        if (e.isNoConnectionError) {
           if (kDebugMode) {
-            print('SocketException: token not revoked');
+            print('SocketException signOut: token not revoked');
           }
         } else {
           rethrow;
@@ -105,6 +104,25 @@ class GithubAuthenticator {
       }
       await _credentialsStorage.clear();
       return right(unit);
+    } on PlatformException {
+      return left(const AuthFailure.storage());
+    }
+  }
+
+  Future<Either<AuthFailure, Credentials>> refresh(
+      Credentials credentials) async {
+    try {
+      final refreshCredentials = await credentials.refresh(
+        identifier: clientId,
+        secret: clientSecret,
+        httpClient: GithubOAuthHttpClient(),
+      );
+      await _credentialsStorage.save(refreshCredentials);
+      return right(refreshCredentials);
+    } on FormatException {
+      return left(const AuthFailure.server());
+    } on AuthorizationException catch (e) {
+      return left(AuthFailure.server('${e.error}: ${e.description}'));
     } on PlatformException {
       return left(const AuthFailure.storage());
     }
