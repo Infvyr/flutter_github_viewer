@@ -4,12 +4,12 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: '>=3.0.3 <4.0.0'
+  sdk: '>=2.17.0 <4.0.0'
 
 dependencies:
   auto_route: ^7.4.0
   dartz: ^0.10.1
-  dio: ^5.1.2
+  dio: ^5.2.1+1
   flutter:
     sdk: flutter
   flutter_hooks: ^0.18.6
@@ -19,15 +19,15 @@ dependencies:
   hooks_riverpod: ^2.3.6
   http: ^1.0.0
   oauth2: ^2.0.2
-  webview_flutter: ^4.2.1
+  webview_flutter: ^4.2.2
 
 dev_dependencies:
   auto_route_generator: ^7.1.1
-  build_runner: ^2.4.4
+  build_runner: ^2.4.5
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
-  freezed: ^2.3.4
+  freezed: ^2.3.5
 
 flutter:
   uses-material-design: true
