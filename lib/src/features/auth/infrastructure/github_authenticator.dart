@@ -2,12 +2,12 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_github_viewer/core/infrastructure/dio_extensions.dart';
-import 'package:flutter_github_viewer/core/shared/codecs.dart';
+import 'package:flutter_github_viewer/src/core/infrastructure/dio_extensions.dart';
+import 'package:flutter_github_viewer/src/core/shared/codecs.dart';
 import 'package:flutter_github_viewer/src/features/auth/domain/auth_failure.dart';
 import 'package:flutter_github_viewer/src/features/auth/infrastructure/credentials_storage/credentials_storage.dart';
-import 'package:oauth2/oauth2.dart';
 import 'package:http/http.dart' as http;
+import 'package:oauth2/oauth2.dart';
 
 class GithubAuthenticator {
   GithubAuthenticator(this._credentialsStorage, this._dio);
@@ -19,12 +19,9 @@ class GithubAuthenticator {
   static const clientSecret = 'f392c19595ee987bf1105965fb988ed847af7def';
   static const scopes = ['read:user', 'repo'];
 
-  static final authorizationEndpoint =
-      Uri.parse('https://github.com/login/oauth/authorize');
-  static final tokenEndpoint =
-      Uri.parse('https://github.com/login/oauth/access_token');
-  static final revocationEndpoint =
-      Uri.parse('https://api.github.com/applications/$clientId/token');
+  static final authorizationEndpoint = Uri.parse('https://github.com/login/oauth/authorize');
+  static final tokenEndpoint = Uri.parse('https://github.com/login/oauth/access_token');
+  static final revocationEndpoint = Uri.parse('https://api.github.com/applications/$clientId/token');
   static final redirectUrl = Uri.parse('http://localhost:3000/callback');
 
   Future<Credentials?> getSignedInCredentials() async {
@@ -42,8 +39,7 @@ class GithubAuthenticator {
     }
   }
 
-  Future<bool> isSignedIn() =>
-      getSignedInCredentials().then((credentials) => credentials != null);
+  Future<bool> isSignedIn() => getSignedInCredentials().then((credentials) => credentials != null);
 
   AuthorizationCodeGrant createGrant() {
     return AuthorizationCodeGrant(
@@ -77,12 +73,9 @@ class GithubAuthenticator {
   }
 
   Future<Either<AuthFailure, Unit>> signOut() async {
-    final accessToken = await _credentialsStorage
-        .read()
-        .then((credentials) => credentials?.accessToken);
+    final accessToken = await _credentialsStorage.read().then((credentials) => credentials?.accessToken);
 
-    final usernameAndPassword =
-        stringToBase64.encode('$clientId:$clientSecret');
+    final usernameAndPassword = stringToBase64.encode('$clientId:$clientSecret');
 
     try {
       try {
@@ -93,7 +86,7 @@ class GithubAuthenticator {
             headers: {'Authorization': 'basic $usernameAndPassword'},
           ),
         );
-      } on DioError catch (e) {
+      } on DioException catch (e) {
         if (e.isNoConnectionError) {
           if (kDebugMode) {
             print('SocketException signOut: token not revoked');
@@ -109,8 +102,7 @@ class GithubAuthenticator {
     }
   }
 
-  Future<Either<AuthFailure, Credentials>> refresh(
-      Credentials credentials) async {
+  Future<Either<AuthFailure, Credentials>> refresh(Credentials credentials) async {
     try {
       final refreshCredentials = await credentials.refresh(
         identifier: clientId,
