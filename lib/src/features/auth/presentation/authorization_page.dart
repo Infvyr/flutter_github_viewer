@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_github_viewer/src/features/auth/infrastructure/github_authenticator.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 @RoutePage()
@@ -22,9 +23,24 @@ class _AuthorizationPageState extends State<AuthorizationPage> {
   @override
   void initState() {
     super.initState();
-    _controller = WebViewController();
-    _controller.setJavaScriptMode(JavaScriptMode.unrestricted);
-    _controller.loadRequest(Uri.parse(widget.authorizationUrl.toString()));
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(Uri.parse(widget.authorizationUrl.toString()))
+      ..clearCache()
+      ..clearLocalStorage()
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onNavigationRequest: (request) {
+            if (request.url
+                .startsWith(GithubAuthenticator.redirectUrl.toString())) {
+              widget.onAuthorizationCodeRedirectAttempt(Uri.parse(request.url));
+              return NavigationDecision.prevent;
+            }
+            return NavigationDecision.navigate;
+          },
+        ),
+      );
+    WebViewCookieManager().clearCookies();
   }
 
   @override
