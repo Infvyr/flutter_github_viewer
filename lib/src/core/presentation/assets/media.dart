@@ -6,7 +6,7 @@ class AppAssets {
   static const mark = 'assets/images/github-mark.svg';
   static const markWhite = 'assets/images/github-mark-white.svg';
 
-/* Only SVGs images */
+/* SVGs */
   static const imagesAssets = [
     mark,
     markWhite,

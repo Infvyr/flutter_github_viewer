@@ -11,12 +11,12 @@
 import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:flutter/material.dart' as _i6;
 import 'package:flutter_github_viewer/src/features/auth/presentation/authorization_page.dart'
-    as _i4;
-import 'package:flutter_github_viewer/src/features/auth/presentation/sign_in_page.dart'
     as _i3;
-import 'package:flutter_github_viewer/src/features/splash/presentation/splash_page.dart'
+import 'package:flutter_github_viewer/src/features/auth/presentation/sign_in_page.dart'
     as _i2;
-import 'package:flutter_github_viewer/src/features/starred_repos/presentation/starred_repos_page.dart'
+import 'package:flutter_github_viewer/src/features/github/repos/starred_repos/presentation/starred_repos_page.dart'
+    as _i4;
+import 'package:flutter_github_viewer/src/features/splash/presentation/splash_page.dart'
     as _i1;
 
 abstract class $AppRouter extends _i5.RootStackRouter {
@@ -24,29 +24,23 @@ abstract class $AppRouter extends _i5.RootStackRouter {
 
   @override
   final Map<String, _i5.PageFactory> pagesMap = {
-    StarredReposRoute.name: (routeData) {
-      return _i5.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i1.StarredReposPage(),
-      );
-    },
     SplashRoute.name: (routeData) {
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.SplashPage(),
+        child: const _i1.SplashPage(),
       );
     },
     SignInRoute.name: (routeData) {
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.SignInPage(),
+        child: const _i2.SignInPage(),
       );
     },
     AuthorizationRoute.name: (routeData) {
       final args = routeData.argsAs<AuthorizationRouteArgs>();
       return _i5.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.AuthorizationPage(
+        child: _i3.AuthorizationPage(
           key: args.key,
           authorizationUrl: args.authorizationUrl,
           onAuthorizationCodeRedirectAttempt:
@@ -54,25 +48,17 @@ abstract class $AppRouter extends _i5.RootStackRouter {
         ),
       );
     },
+    StarredReposRoute.name: (routeData) {
+      return _i5.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i4.StarredReposPage(),
+      );
+    },
   };
 }
 
 /// generated route for
-/// [_i1.StarredReposPage]
-class StarredReposRoute extends _i5.PageRouteInfo<void> {
-  const StarredReposRoute({List<_i5.PageRouteInfo>? children})
-      : super(
-          StarredReposRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'StarredReposRoute';
-
-  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i2.SplashPage]
+/// [_i1.SplashPage]
 class SplashRoute extends _i5.PageRouteInfo<void> {
   const SplashRoute({List<_i5.PageRouteInfo>? children})
       : super(
@@ -86,7 +72,7 @@ class SplashRoute extends _i5.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.SignInPage]
+/// [_i2.SignInPage]
 class SignInRoute extends _i5.PageRouteInfo<void> {
   const SignInRoute({List<_i5.PageRouteInfo>? children})
       : super(
@@ -100,7 +86,7 @@ class SignInRoute extends _i5.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.AuthorizationPage]
+/// [_i3.AuthorizationPage]
 class AuthorizationRoute extends _i5.PageRouteInfo<AuthorizationRouteArgs> {
   AuthorizationRoute({
     _i6.Key? key,
@@ -141,4 +127,18 @@ class AuthorizationRouteArgs {
   String toString() {
     return 'AuthorizationRouteArgs{key: $key, authorizationUrl: $authorizationUrl, onAuthorizationCodeRedirectAttempt: $onAuthorizationCodeRedirectAttempt}';
   }
+}
+
+/// generated route for
+/// [_i4.StarredReposPage]
+class StarredReposRoute extends _i5.PageRouteInfo<void> {
+  const StarredReposRoute({List<_i5.PageRouteInfo>? children})
+      : super(
+          StarredReposRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'StarredReposRoute';
+
+  static const _i5.PageInfo<void> page = _i5.PageInfo<void>(name);
 }
