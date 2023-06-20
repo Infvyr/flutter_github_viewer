@@ -18,12 +18,10 @@ class GithubHeaders with _$GithubHeaders {
 
     return GithubHeaders(
       etag: headers.map['Etag']?.first,
-      link: link == null
-          ? null
-          : PaginationLink.parse(
-              link.split(','),
-              requestUrl: response.realUri.toString(),
-            ),
+      link: PaginationLink.parse(
+        link?.split(',') ?? [],
+        requestUrl: response.realUri.toString(),
+      ),
     );
   }
 
