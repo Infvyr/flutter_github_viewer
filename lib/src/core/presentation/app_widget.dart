@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_github_viewer/src/core/presentation/routes/app_router.dart';
 import 'package:flutter_github_viewer/src/core/presentation/routes/app_router.gr.dart';
+import 'package:flutter_github_viewer/src/core/shared/providers.dart';
 import 'package:flutter_github_viewer/src/features/auth/application/auth_notifier.dart';
 import 'package:flutter_github_viewer/src/features/auth/shared/providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final initializationProvider = FutureProvider((ref) async {
+  await ref.read(sembastProvider).init();
+
   final authNotifier = ref.read(authNotifierProvider.notifier);
 
   /// Todo: Remove this artificial delay

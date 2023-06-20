@@ -5,6 +5,7 @@
 GET {{baseURL}}/user/starred?page=1
 Authorization: token {{token}}
 Accept: {{acceptHeader}}
+If-None-Match: W/"4e05e3a0b0d495ce9c9411f8900d00d9b03953a5557aba06e668783dd0c12b3f"
 
 ###
 
