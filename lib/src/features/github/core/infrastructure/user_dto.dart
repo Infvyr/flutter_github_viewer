@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:flutter_github_viewer/src/features/github/core/domain/user.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_dto.freezed.dart';
@@ -21,5 +22,10 @@ class UserDTO with _$UserDTO {
         avatarUrl: user.avatarUrl,
       );
 
-  UserDTO toDomain() => UserDTO.fromDomain(this);
+  User toDomain() {
+    return User(
+      name: name,
+      avatarUrl: avatarUrl,
+    );
+  }
 }

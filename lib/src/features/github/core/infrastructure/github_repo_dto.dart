@@ -1,5 +1,6 @@
 // ignore_for_file: invalid_annotation_target
 
+import 'package:flutter_github_viewer/src/features/github/core/domain/github_repo.dart';
 import 'package:flutter_github_viewer/src/features/github/core/infrastructure/user_dto.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -30,8 +31,8 @@ class GithubRepoDTO with _$GithubRepoDTO {
         stargazersCount: repo.stargazersCount,
       );
 
-  GithubRepoDTO toDomain() {
-    return GithubRepoDTO(
+  GithubRepo toDomain() {
+    return GithubRepo(
       owner: owner.toDomain(),
       name: name,
       description: description,

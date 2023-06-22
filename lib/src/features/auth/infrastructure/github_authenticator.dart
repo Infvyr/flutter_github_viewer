@@ -19,9 +19,12 @@ class GithubAuthenticator {
   static const clientSecret = 'f392c19595ee987bf1105965fb988ed847af7def';
   static const scopes = ['read:user', 'repo'];
 
-  static final authorizationEndpoint = Uri.parse('https://github.com/login/oauth/authorize');
-  static final tokenEndpoint = Uri.parse('https://github.com/login/oauth/access_token');
-  static final revocationEndpoint = Uri.parse('https://api.github.com/applications/$clientId/token');
+  static final authorizationEndpoint =
+      Uri.parse('https://github.com/login/oauth/authorize');
+  static final tokenEndpoint =
+      Uri.parse('https://github.com/login/oauth/access_token');
+  static final revocationEndpoint =
+      Uri.parse('https://api.github.com/applications/$clientId/token');
   static final redirectUrl = Uri.parse('http://localhost:3000/callback');
 
   Future<Credentials?> getSignedInCredentials() async {
@@ -39,7 +42,8 @@ class GithubAuthenticator {
     }
   }
 
-  Future<bool> isSignedIn() => getSignedInCredentials().then((credentials) => credentials != null);
+  Future<bool> isSignedIn() =>
+      getSignedInCredentials().then((credentials) => credentials != null);
 
   AuthorizationCodeGrant createGrant() {
     return AuthorizationCodeGrant(
@@ -73,13 +77,16 @@ class GithubAuthenticator {
   }
 
   Future<Either<AuthFailure, Unit>> signOut() async {
-    final accessToken = await _credentialsStorage.read().then((credentials) => credentials?.accessToken);
+    final accessToken = await _credentialsStorage
+        .read()
+        .then((credentials) => credentials?.accessToken);
 
-    final usernameAndPassword = stringToBase64.encode('$clientId:$clientSecret');
+    final usernameAndPassword =
+        stringToBase64.encode('$clientId:$clientSecret');
 
     try {
       try {
-        _dio.deleteUri(
+        await _dio.deleteUri(
           revocationEndpoint,
           data: {'accee_token': accessToken},
           options: Options(
@@ -102,7 +109,8 @@ class GithubAuthenticator {
     }
   }
 
-  Future<Either<AuthFailure, Credentials>> refresh(Credentials credentials) async {
+  Future<Either<AuthFailure, Credentials>> refresh(
+      Credentials credentials) async {
     try {
       final refreshCredentials = await credentials.refresh(
         identifier: clientId,
