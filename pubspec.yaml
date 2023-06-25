@@ -7,9 +7,9 @@ environment:
   sdk: '>=2.17.0 <4.0.0'
 
 dependencies:
-  auto_route: ^7.4.0
+  auto_route: ^7.5.0
   auto_size_text: ^3.0.0
-  collection: ^1.17.1
+  collection: ^1.17.2
   dartz: ^0.10.1
   dio: ^5.2.1+1
   flutter:

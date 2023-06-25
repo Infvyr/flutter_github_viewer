@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_github_viewer/src/core/presentation/routes/app_router.dart';
 import 'package:flutter_github_viewer/src/core/presentation/routes/app_router.gr.dart';
@@ -8,6 +9,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final initializationProvider = FutureProvider((ref) async {
   await ref.read(sembastProvider).init();
+
+  ref.read(dioProvider)
+    ..options = BaseOptions(headers: {
+      'Accept': 'application/vnd.github.v3.html+json',
+    })
+    ..interceptors.add(ref.read(oAuth2InterceptorProvider));
 
   final authNotifier = ref.read(authNotifierProvider.notifier);
 
