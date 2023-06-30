@@ -14,13 +14,14 @@ class StarredReposRemoteService {
   final GithubHeadersCache _headersCache;
 
   Future<RemoteResponse<List<GithubRepoDTO>>> getStarredReposPage(
-      int page) async {
+    int page,
+  ) async {
     final requestUri = Uri.https(
       'api.github.com',
       '/user/starred',
       {
         'page': '$page',
-        'per_page': '$PaginationConfig.itemsPerPage',
+        'per_page': '${PaginationConfig.itemsPerPage}',
       },
     );
 
@@ -29,16 +30,16 @@ class StarredReposRemoteService {
     try {
       final response = await _dio.getUri(
         requestUri,
-        options: Options(
-          headers: {
-            'If-None-Match': previousHeaders.etag ?? '',
-          },
-        ),
+        // options: Options(
+        //   headers: {
+        //     'If-None-Match': previousHeaders?.etag ?? '',
+        //   },
+        // ),
       );
 
       if (response.statusCode == 304) {
         return RemoteResponse.notModified(
-          maxPage: previousHeaders.link?.maxPage ?? 0,
+          maxPage: previousHeaders?.link?.maxPage ?? 0,
         );
       } else if (response.statusCode == 200) {
         final headers = GithubHeaders.parse(response);
@@ -56,7 +57,7 @@ class StarredReposRemoteService {
     } on DioException catch (e) {
       if (e.isNoConnectionError) {
         return RemoteResponse.noConnection(
-          maxPage: previousHeaders.link?.maxPage ?? 0,
+          maxPage: previousHeaders?.link?.maxPage ?? 0,
         );
       } else if (e.response != null) {
         throw RestApiException(e.response?.statusCode);

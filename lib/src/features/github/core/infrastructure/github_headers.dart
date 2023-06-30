@@ -13,15 +13,16 @@ class GithubHeaders with _$GithubHeaders {
   }) = _GithubHeaders;
 
   factory GithubHeaders.parse(Response response) {
-    final headers = response.headers;
-    final link = headers.map['Link']?.first;
+    final link = response.headers.map['Link']?[0];
 
     return GithubHeaders(
-      etag: headers.map['Etag']?.first,
-      link: PaginationLink.parse(
-        link?.split(',') ?? [],
-        requestUrl: response.realUri.toString(),
-      ),
+      etag: response.headers.map['ETag']?[0],
+      link: link == null
+          ? null
+          : PaginationLink.parse(
+              link.split(','),
+              requestUrl: response.requestOptions.uri.toString(),
+            ),
     );
   }
 
@@ -32,7 +33,9 @@ class GithubHeaders with _$GithubHeaders {
 @freezed
 class PaginationLink with _$PaginationLink {
   const PaginationLink._();
-  const factory PaginationLink({required int maxPage}) = _PaginationLink;
+  const factory PaginationLink({
+    required int maxPage,
+  }) = _PaginationLink;
 
   factory PaginationLink.parse(
     List<String> values, {
@@ -41,7 +44,7 @@ class PaginationLink with _$PaginationLink {
     return PaginationLink(
       maxPage: _extractPageNumber(
         values.firstWhere(
-          (element) => element.contains('rel="last"'),
+          (e) => e.contains('rel="last"'),
           orElse: () => requestUrl,
         ),
       ),

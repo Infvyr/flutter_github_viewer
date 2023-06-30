@@ -15,10 +15,10 @@ class GithubHeadersCache {
         .put(_sembastDatabase.instance, headers.toJson());
   }
 
-  Future<GithubHeaders> get(Uri uri) async {
+  Future<GithubHeaders?> get(Uri uri) async {
     final json =
         await _store.record(uri.toString()).get(_sembastDatabase.instance);
-    return GithubHeaders.fromJson(json ?? {});
+    return json == null ? null : GithubHeaders.fromJson(json);
   }
 
   Future<void> delete(Uri uri) async {
