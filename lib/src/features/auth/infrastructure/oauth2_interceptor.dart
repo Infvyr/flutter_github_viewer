@@ -11,7 +11,7 @@ class OAuth2Interceptor extends Interceptor {
   final Dio _dio;
 
   @override
-  void onRequest(
+  Future<void> onRequest(
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
@@ -26,29 +26,32 @@ class OAuth2Interceptor extends Interceptor {
   }
 
   @override
-  void onError(DioException err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(
+    DioException err,
+    ErrorInterceptorHandler handler,
+  ) async {
     final errorResponse = err.response;
     if (errorResponse != null && errorResponse.statusCode == 401) {
       final credentials = await _authenticator.getSignedInCredentials();
-      if (credentials != null && credentials.canRefresh) {
-        await _authenticator.refresh(credentials);
-      } else {
-        await _authenticator.clearCredentialsStorage();
-      }
+
+      credentials != null && credentials.canRefresh
+          ? await _authenticator.refresh(credentials)
+          : await _authenticator.clearCredentialsStorage();
+
       await _authNotifier.checkAndUpdateAuthStatus();
 
-      final refreshCredentials = await _authenticator.getSignedInCredentials();
-      if (refreshCredentials != null) {
+      final refreshedCredentials =
+          await _authenticator.getSignedInCredentials();
+      if (refreshedCredentials != null) {
         handler.resolve(
           await _dio.fetch(
             errorResponse.requestOptions
-              ..headers['Authorization'] =
-                  'bearer ${refreshCredentials.accessToken}',
+              ..headers['Authorization'] = 'bearer $refreshedCredentials',
           ),
         );
-      } else {
-        handler.next(err);
       }
+    } else {
+      handler.next(err);
     }
   }
 }

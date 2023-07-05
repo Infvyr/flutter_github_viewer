@@ -105,8 +105,8 @@ class __$$_ServerCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Server implements _Server {
-  const _$_Server([this.message]);
+class _$_Server extends _Server {
+  const _$_Server([this.message]) : super._();
 
   @override
   final String? message;
@@ -196,8 +196,9 @@ class _$_Server implements _Server {
   }
 }
 
-abstract class _Server implements AuthFailure {
+abstract class _Server extends AuthFailure {
   const factory _Server([final String? message]) = _$_Server;
+  const _Server._() : super._();
 
   String? get message;
   @JsonKey(ignore: true)
@@ -222,8 +223,8 @@ class __$$_StorageCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_Storage implements _Storage {
-  const _$_Storage();
+class _$_Storage extends _Storage {
+  const _$_Storage() : super._();
 
   @override
   String toString() {
@@ -302,6 +303,7 @@ class _$_Storage implements _Storage {
   }
 }
 
-abstract class _Storage implements AuthFailure {
+abstract class _Storage extends AuthFailure {
   const factory _Storage() = _$_Storage;
+  const _Storage._() : super._();
 }
