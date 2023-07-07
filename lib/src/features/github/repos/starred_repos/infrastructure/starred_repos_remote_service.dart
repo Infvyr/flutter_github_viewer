@@ -56,9 +56,7 @@ class StarredReposRemoteService {
       }
     } on DioException catch (e) {
       if (e.isNoConnectionError) {
-        return RemoteResponse.noConnection(
-          maxPage: previousHeaders?.link?.maxPage ?? 0,
-        );
+        return const RemoteResponse.noConnection();
       } else if (e.response != null) {
         throw RestApiException(e.response?.statusCode);
       } else {

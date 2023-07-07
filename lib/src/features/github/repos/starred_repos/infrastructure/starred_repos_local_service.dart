@@ -1,14 +1,14 @@
 import 'package:collection/collection.dart';
-import 'package:flutter_github_viewer/src/features/github/core/infrastructure/pagination_config.dart';
-import 'package:sembast/sembast.dart';
-
 import 'package:flutter_github_viewer/src/core/infrastructure/sembast_database.dart';
 import 'package:flutter_github_viewer/src/features/github/core/infrastructure/github_repo_dto.dart';
+import 'package:flutter_github_viewer/src/features/github/core/infrastructure/pagination_config.dart';
+import 'package:sembast/sembast.dart';
 
 class StarredReposLocalService {
   StarredReposLocalService(this._sembastDatabase);
 
   final SembastDatabase _sembastDatabase;
+
   final _store = intMapStoreFactory.store('starredRepos');
 
   Future<void> upsertPage(List<GithubRepoDTO> dtos, int page) async {
@@ -16,9 +16,8 @@ class StarredReposLocalService {
 
     await _store
         .records(
-          dtos.mapIndexed(
-            (index, _) => index + PaginationConfig.itemsPerPage * sembastPage,
-          ),
+          dtos.mapIndexed((index, _) =>
+              index + PaginationConfig.itemsPerPage * sembastPage),
         )
         .put(
           _sembastDatabase.instance,
