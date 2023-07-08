@@ -3,12 +3,12 @@ import 'package:flutter_github_viewer/src/core/domain/fresh.dart';
 import 'package:flutter_github_viewer/src/core/infrastructure/network_exceptions.dart';
 import 'package:flutter_github_viewer/src/features/github/core/domain/github_failure.dart';
 import 'package:flutter_github_viewer/src/features/github/core/domain/github_repo.dart';
-import 'package:flutter_github_viewer/src/features/github/core/infrastructure/github_repo_dto.dart';
+import 'package:flutter_github_viewer/src/features/github/repos/core/infrastructure/extensions.dart';
 import 'package:flutter_github_viewer/src/features/github/repos/starred_repos/infrastructure/starred_repos_local_service.dart';
 import 'package:flutter_github_viewer/src/features/github/repos/starred_repos/infrastructure/starred_repos_remote_service.dart';
 
-class StarredReposRepository {
-  StarredReposRepository(this._remoteService, this._localService);
+class PaginatedReposRepository {
+  PaginatedReposRepository(this._remoteService, this._localService);
 
   final StarredReposRemoteService _remoteService;
   final StarredReposLocalService _localService;
@@ -40,11 +40,5 @@ class StarredReposRepository {
     } on RestApiException catch (e) {
       return left(GithubFailure.api(e.errorCode));
     }
-  }
-}
-
-extension DTOListToDomainList on List<GithubRepoDTO> {
-  List<GithubRepo> toDomain() {
-    return map((e) => e.toDomain()).toList();
   }
 }

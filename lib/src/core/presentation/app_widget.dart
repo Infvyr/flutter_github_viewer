@@ -68,7 +68,7 @@ class AppWidget extends ConsumerWidget {
       routerDelegate: appRouter.delegate(),
       routeInformationParser: appRouter.defaultRouteParser(),
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        useMaterial3: true,
         textTheme: const TextTheme(
           headlineLarge: TextStyle(
             fontSize: 48,
@@ -92,7 +92,9 @@ class AppWidget extends ConsumerWidget {
           ),
         ),
       ),
-      darkTheme: ThemeData.dark(),
+      darkTheme: ThemeData.dark(
+        useMaterial3: true,
+      ),
       themeMode: ThemeMode.system,
     );
   }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'starred_repos_notifier.dart';
+part of 'paginated_repos_notifier.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$StarredReposState {
+mixin _$PaginatedReposState {
   Fresh<List<GithubRepo>> get repos => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -80,15 +80,15 @@ mixin _$StarredReposState {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $StarredReposStateCopyWith<StarredReposState> get copyWith =>
+  $PaginatedReposStateCopyWith<PaginatedReposState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $StarredReposStateCopyWith<$Res> {
-  factory $StarredReposStateCopyWith(
-          StarredReposState value, $Res Function(StarredReposState) then) =
-      _$StarredReposStateCopyWithImpl<$Res, StarredReposState>;
+abstract class $PaginatedReposStateCopyWith<$Res> {
+  factory $PaginatedReposStateCopyWith(
+          PaginatedReposState value, $Res Function(PaginatedReposState) then) =
+      _$PaginatedReposStateCopyWithImpl<$Res, PaginatedReposState>;
   @useResult
   $Res call({Fresh<List<GithubRepo>> repos});
 
@@ -96,9 +96,9 @@ abstract class $StarredReposStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$StarredReposStateCopyWithImpl<$Res, $Val extends StarredReposState>
-    implements $StarredReposStateCopyWith<$Res> {
-  _$StarredReposStateCopyWithImpl(this._value, this._then);
+class _$PaginatedReposStateCopyWithImpl<$Res, $Val extends PaginatedReposState>
+    implements $PaginatedReposStateCopyWith<$Res> {
+  _$PaginatedReposStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -129,7 +129,7 @@ class _$StarredReposStateCopyWithImpl<$Res, $Val extends StarredReposState>
 
 /// @nodoc
 abstract class _$$_InitialCopyWith<$Res>
-    implements $StarredReposStateCopyWith<$Res> {
+    implements $PaginatedReposStateCopyWith<$Res> {
   factory _$$_InitialCopyWith(
           _$_Initial value, $Res Function(_$_Initial) then) =
       __$$_InitialCopyWithImpl<$Res>;
@@ -143,7 +143,7 @@ abstract class _$$_InitialCopyWith<$Res>
 
 /// @nodoc
 class __$$_InitialCopyWithImpl<$Res>
-    extends _$StarredReposStateCopyWithImpl<$Res, _$_Initial>
+    extends _$PaginatedReposStateCopyWithImpl<$Res, _$_Initial>
     implements _$$_InitialCopyWith<$Res> {
   __$$_InitialCopyWithImpl(_$_Initial _value, $Res Function(_$_Initial) _then)
       : super(_value, _then);
@@ -172,7 +172,7 @@ class _$_Initial extends _Initial {
 
   @override
   String toString() {
-    return 'StarredReposState.initial(repos: $repos)';
+    return 'PaginatedReposState.initial(repos: $repos)';
   }
 
   @override
@@ -278,7 +278,7 @@ class _$_Initial extends _Initial {
   }
 }
 
-abstract class _Initial extends StarredReposState {
+abstract class _Initial extends PaginatedReposState {
   const factory _Initial(final Fresh<List<GithubRepo>> repos) = _$_Initial;
   const _Initial._() : super._();
 
@@ -292,7 +292,7 @@ abstract class _Initial extends StarredReposState {
 
 /// @nodoc
 abstract class _$$_LoadInProgressCopyWith<$Res>
-    implements $StarredReposStateCopyWith<$Res> {
+    implements $PaginatedReposStateCopyWith<$Res> {
   factory _$$_LoadInProgressCopyWith(
           _$_LoadInProgress value, $Res Function(_$_LoadInProgress) then) =
       __$$_LoadInProgressCopyWithImpl<$Res>;
@@ -306,7 +306,7 @@ abstract class _$$_LoadInProgressCopyWith<$Res>
 
 /// @nodoc
 class __$$_LoadInProgressCopyWithImpl<$Res>
-    extends _$StarredReposStateCopyWithImpl<$Res, _$_LoadInProgress>
+    extends _$PaginatedReposStateCopyWithImpl<$Res, _$_LoadInProgress>
     implements _$$_LoadInProgressCopyWith<$Res> {
   __$$_LoadInProgressCopyWithImpl(
       _$_LoadInProgress _value, $Res Function(_$_LoadInProgress) _then)
@@ -343,7 +343,7 @@ class _$_LoadInProgress extends _LoadInProgress {
 
   @override
   String toString() {
-    return 'StarredReposState.loadInProgress(repos: $repos, itemsPerPage: $itemsPerPage)';
+    return 'PaginatedReposState.loadInProgress(repos: $repos, itemsPerPage: $itemsPerPage)';
   }
 
   @override
@@ -451,7 +451,7 @@ class _$_LoadInProgress extends _LoadInProgress {
   }
 }
 
-abstract class _LoadInProgress extends StarredReposState {
+abstract class _LoadInProgress extends PaginatedReposState {
   const factory _LoadInProgress(
           final Fresh<List<GithubRepo>> repos, final int itemsPerPage) =
       _$_LoadInProgress;
@@ -468,7 +468,7 @@ abstract class _LoadInProgress extends StarredReposState {
 
 /// @nodoc
 abstract class _$$_LoadSuccessCopyWith<$Res>
-    implements $StarredReposStateCopyWith<$Res> {
+    implements $PaginatedReposStateCopyWith<$Res> {
   factory _$$_LoadSuccessCopyWith(
           _$_LoadSuccess value, $Res Function(_$_LoadSuccess) then) =
       __$$_LoadSuccessCopyWithImpl<$Res>;
@@ -482,7 +482,7 @@ abstract class _$$_LoadSuccessCopyWith<$Res>
 
 /// @nodoc
 class __$$_LoadSuccessCopyWithImpl<$Res>
-    extends _$StarredReposStateCopyWithImpl<$Res, _$_LoadSuccess>
+    extends _$PaginatedReposStateCopyWithImpl<$Res, _$_LoadSuccess>
     implements _$$_LoadSuccessCopyWith<$Res> {
   __$$_LoadSuccessCopyWithImpl(
       _$_LoadSuccess _value, $Res Function(_$_LoadSuccess) _then)
@@ -520,7 +520,7 @@ class _$_LoadSuccess extends _LoadSuccess {
 
   @override
   String toString() {
-    return 'StarredReposState.loadSuccess(repos: $repos, isNextPageAvailable: $isNextPageAvailable)';
+    return 'PaginatedReposState.loadSuccess(repos: $repos, isNextPageAvailable: $isNextPageAvailable)';
   }
 
   @override
@@ -628,7 +628,7 @@ class _$_LoadSuccess extends _LoadSuccess {
   }
 }
 
-abstract class _LoadSuccess extends StarredReposState {
+abstract class _LoadSuccess extends PaginatedReposState {
   const factory _LoadSuccess(final Fresh<List<GithubRepo>> repos,
       {required final bool isNextPageAvailable}) = _$_LoadSuccess;
   const _LoadSuccess._() : super._();
@@ -644,7 +644,7 @@ abstract class _LoadSuccess extends StarredReposState {
 
 /// @nodoc
 abstract class _$$_LoadFailureCopyWith<$Res>
-    implements $StarredReposStateCopyWith<$Res> {
+    implements $PaginatedReposStateCopyWith<$Res> {
   factory _$$_LoadFailureCopyWith(
           _$_LoadFailure value, $Res Function(_$_LoadFailure) then) =
       __$$_LoadFailureCopyWithImpl<$Res>;
@@ -659,7 +659,7 @@ abstract class _$$_LoadFailureCopyWith<$Res>
 
 /// @nodoc
 class __$$_LoadFailureCopyWithImpl<$Res>
-    extends _$StarredReposStateCopyWithImpl<$Res, _$_LoadFailure>
+    extends _$PaginatedReposStateCopyWithImpl<$Res, _$_LoadFailure>
     implements _$$_LoadFailureCopyWith<$Res> {
   __$$_LoadFailureCopyWithImpl(
       _$_LoadFailure _value, $Res Function(_$_LoadFailure) _then)
@@ -704,7 +704,7 @@ class _$_LoadFailure extends _LoadFailure {
 
   @override
   String toString() {
-    return 'StarredReposState.loadFailure(failure: $failure, repos: $repos)';
+    return 'PaginatedReposState.loadFailure(failure: $failure, repos: $repos)';
   }
 
   @override
@@ -811,7 +811,7 @@ class _$_LoadFailure extends _LoadFailure {
   }
 }
 
-abstract class _LoadFailure extends StarredReposState {
+abstract class _LoadFailure extends PaginatedReposState {
   const factory _LoadFailure(
           final GithubFailure failure, final Fresh<List<GithubRepo>> repos) =
       _$_LoadFailure;
