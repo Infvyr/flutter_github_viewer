@@ -7,7 +7,7 @@ class GithubHeadersCache {
 
   final SembastDatabase _sembastDatabase;
 
-  final _store = stringMapStoreFactory.store('github_headers');
+  final _store = stringMapStoreFactory.store('headers');
 
   Future<void> save(Uri uri, GithubHeaders headers) async {
     await _store
