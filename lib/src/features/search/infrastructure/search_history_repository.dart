@@ -10,7 +10,8 @@ class SearchHistoryRepository {
 
   static const historyLength = 10;
 
-  Filter _filterBy(String term) => Filter.equals('value', term);
+  Filter _filterBy(String term) =>
+      Filter.custom((record) => record.value == term);
 
   Stream<List<String>> watchSearchTerms({String? filter}) {
     return _store
@@ -69,7 +70,6 @@ class SearchHistoryRepository {
     await _store.delete(
       dbClient,
       finder: Finder(filter: _filterBy(term)),
-      // finder: Finder(filter: Filter.custom((record) => record.value == term)),
     );
   }
 }

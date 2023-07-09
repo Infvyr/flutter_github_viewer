@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_github_viewer/src/core/presentation/routes/app_router.gr.dart';
+import 'package:flutter_github_viewer/src/features/search/presentation/custom_search_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_github_viewer/src/features/auth/shared/providers.dart';
@@ -24,34 +26,30 @@ class _SearchedReposPageState extends ConsumerState<SearchedReposPage> {
   void initState() {
     super.initState();
     Future.microtask(
-      () => ref
-          .read(searchedReposNotifierProvider.notifier)
-          .getNextSearchedReposPage(widget.searchTerm),
+      () => ref.read(searchedReposNotifierProvider.notifier).getFirstSearchedReposPage(widget.searchTerm),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(widget.searchTerm),
-          actions: [
-            IconButton(
-              onPressed: () {
-                ref.read(authNotifierProvider.notifier).signOut();
-              },
-              icon: const Icon(Icons.logout),
-            ),
-          ],
+    return Scaffold(
+      body: CustomSearchBar(
+        title: 'Starred Repos',
+        hintText: 'Search all repositories...',
+        onShouldNavigateToResultPage: (searchTerm) {
+          AutoRouter.of(context).pushAndPopUntil(
+            SearchedReposRoute(searchTerm: searchTerm),
+            predicate: (route) => route.settings.name == StarredReposRoute.name,
+          );
+        },
+        action: IconButton(
+          onPressed: () => ref.read(authNotifierProvider.notifier).signOut(),
+          icon: const Icon(Icons.logout),
         ),
         body: PaginatedReposListView(
           paginatedReposNotifierProvider: searchedReposNotifierProvider,
-          getNextPage: (ref) => ref
-              .read(searchedReposNotifierProvider.notifier)
-              .getNextSearchedReposPage(widget.searchTerm),
-          noResultMessage:
-              "This is all we could find. Try another search term.",
+          getNextPage: (ref) => ref.read(searchedReposNotifierProvider.notifier).getNextSearchedReposPage(widget.searchTerm),
+          noResultMessage: "This is all we could find. Try another search term.",
         ),
       ),
     );
