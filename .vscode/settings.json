@@ -1,7 +1,7 @@
 {
   "files.exclude": {
     "**/*.freezed.dart": true,
-    "**/*.g.dart": true
-  },
-  "dart.flutterSdkPath": "/Users/vasilenovatchii/fvm/versions/3.10.5",
+    "**/*.g.dart": true,
+    "**/*.gr.dart": true
+  }
 }

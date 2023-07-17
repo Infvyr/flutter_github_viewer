@@ -27,9 +27,9 @@ class RepoDetailRemoteService {
       final response = await _dio.getUri(
         requestUri,
         options: Options(
-          headers: {
-            'If-None-Match': previousHeaders?.etag ?? '',
-          },
+          // headers: {
+          //   'If-None-Match': previousHeaders?.etag ?? '',
+          // },
           responseType: ResponseType.plain,
         ),
       );

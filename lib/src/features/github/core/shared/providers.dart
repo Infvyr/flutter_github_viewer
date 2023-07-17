@@ -1,5 +1,9 @@
 import 'package:flutter_github_viewer/src/core/shared/providers.dart';
 import 'package:flutter_github_viewer/src/features/github/core/infrastructure/github_headers_cache.dart';
+import 'package:flutter_github_viewer/src/features/github/detail/application/repo_detail_notifier.dart';
+import 'package:flutter_github_viewer/src/features/github/detail/infrastructure/repo_detail_local_service.dart';
+import 'package:flutter_github_viewer/src/features/github/detail/infrastructure/repo_detail_remote_service.dart';
+import 'package:flutter_github_viewer/src/features/github/detail/infrastructure/repo_detail_repository.dart';
 import 'package:flutter_github_viewer/src/features/github/repos/core/application/paginated_repos_notifier.dart';
 import 'package:flutter_github_viewer/src/features/github/repos/searched_repos/application/searched_repos_notifier.dart';
 import 'package:flutter_github_viewer/src/features/github/repos/searched_repos/infrastructure/searched_repos_remote_service.dart';
@@ -34,8 +38,7 @@ final starredReposRepositoryProvider = Provider(
   ),
 );
 
-final starredReposNotifierProvider = StateNotifierProvider.autoDispose<
-    StarredReposNotifier, PaginatedReposState>(
+final starredReposNotifierProvider = StateNotifierProvider.autoDispose<StarredReposNotifier, PaginatedReposState>(
   (ref) => StarredReposNotifier(
     ref.watch(starredReposRepositoryProvider),
   ),
@@ -55,9 +58,35 @@ final searchedReposRepositoryProvider = Provider(
   ),
 );
 
-final searchedReposNotifierProvider = StateNotifierProvider.autoDispose<
-    SearchedReposNotifier, PaginatedReposState>(
+final searchedReposNotifierProvider = StateNotifierProvider.autoDispose<SearchedReposNotifier, PaginatedReposState>(
   (ref) => SearchedReposNotifier(
     ref.watch(searchedReposRepositoryProvider),
+  ),
+);
+
+final repoDetailLocalServiceProvider = Provider(
+  (ref) => RepoDetailLocalService(
+    ref.watch(sembastProvider),
+    ref.watch(githubHeadersCacheProvider),
+  ),
+);
+
+final repoDetailRemoteServiceProvider = Provider(
+  (ref) => RepoDetailRemoteService(
+    ref.watch(dioProvider),
+    ref.watch(githubHeadersCacheProvider),
+  ),
+);
+
+final repoDetailRepositoryProvider = Provider(
+  (ref) => RepoDetailRepository(
+    ref.watch(repoDetailLocalServiceProvider),
+    ref.watch(repoDetailRemoteServiceProvider),
+  ),
+);
+
+final repoDetailNotifierProvider = StateNotifierProvider.autoDispose<RepoDetailNotifier, RepoDetailState>(
+  (ref) => RepoDetailNotifier(
+    ref.watch(repoDetailRepositoryProvider),
   ),
 );
