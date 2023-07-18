@@ -21,7 +21,7 @@ class RepoDetailRemoteService {
       '/repos/$fullRepoName/readme',
     );
 
-    final previousHeaders = await _headersCache.get(requestUri);
+    // final previousHeaders = await _headersCache.get(requestUri);
 
     try {
       final response = await _dio.getUri(
