@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_github_viewer/src/core/presentation/routes/app_router.dart';
 import 'package:flutter_github_viewer/src/core/presentation/routes/app_router.gr.dart';
+import 'package:flutter_github_viewer/src/core/presentation/theme/style.dart';
 import 'package:flutter_github_viewer/src/core/shared/providers.dart';
 import 'package:flutter_github_viewer/src/features/auth/application/auth_notifier.dart';
 import 'package:flutter_github_viewer/src/features/auth/shared/providers.dart';
@@ -67,35 +68,7 @@ class AppWidget extends ConsumerWidget {
       title: 'Github Repo Viewer',
       routerDelegate: appRouter.delegate(),
       routeInformationParser: appRouter.defaultRouteParser(),
-      theme: ThemeData(
-        useMaterial3: true,
-        textTheme: const TextTheme(
-          headlineLarge: TextStyle(
-            fontSize: 48,
-            fontWeight: FontWeight.w600,
-          ),
-          headlineMedium: TextStyle(
-            fontSize: 32,
-            fontWeight: FontWeight.w500,
-          ),
-          headlineSmall: TextStyle(
-            fontSize: 24,
-            letterSpacing: 1.15,
-          ),
-          labelLarge: TextStyle(fontSize: 18),
-          labelMedium: TextStyle(fontSize: 16),
-          labelSmall: TextStyle(fontSize: 14),
-        ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size(40, 48),
-          ),
-        ),
-      ),
-      darkTheme: ThemeData.dark(
-        useMaterial3: true,
-      ),
-      themeMode: ThemeMode.system,
+      theme: ThemeStyles.lightTheme,
     );
   }
 }

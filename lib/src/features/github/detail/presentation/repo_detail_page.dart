@@ -58,7 +58,6 @@ class _RepoDetailPageState extends ConsumerState<RepoDetailPage> {
       },
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.grey[100],
           elevation: 5,
           title: Row(
             children: [
@@ -115,16 +114,18 @@ class _RepoDetailPageState extends ConsumerState<RepoDetailPage> {
             return WebViewWidget(
               controller: WebViewController()
                 ..setJavaScriptMode(JavaScriptMode.unrestricted)
-                ..setNavigationDelegate(NavigationDelegate(
-                  onNavigationRequest: (NavigationRequest request) {
-                    if (request.url.startsWith('data:')) {
-                      return NavigationDecision.navigate;
-                    } else {
-                      url_launcher.launchUrl(Uri.parse(request.url));
-                      return NavigationDecision.prevent;
-                    }
-                  },
-                ))
+                ..setNavigationDelegate(
+                  NavigationDelegate(
+                    onNavigationRequest: (NavigationRequest request) {
+                      if (request.url.startsWith('data:')) {
+                        return NavigationDecision.navigate;
+                      } else {
+                        url_launcher.launchUrl(Uri.parse(request.url));
+                        return NavigationDecision.prevent;
+                      }
+                    },
+                  ),
+                )
                 ..loadRequest(
                   Uri.dataFromString(
                     '''
