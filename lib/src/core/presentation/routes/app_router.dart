@@ -8,6 +8,9 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: SplashRoute.page, initial: true),
         AutoRoute(page: SignInRoute.page, path: '/sign-in'),
+        AutoRoute(page: AuthorizationRoute.page, path: '/auth'),
         AutoRoute(page: StarredReposRoute.page, path: '/starred-repos'),
+        AutoRoute(page: SearchedReposRoute.page, path: '/searched-repos'),
+        AutoRoute(page: RepoDetailRoute.page, path: '/detail'),
       ];
 }

@@ -3,5 +3,4 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   errors:
     sort_unnamed_constructors_first: ignore
-    sort_pub_dependencies: ignore
     invalid_use_of_protected_member: error

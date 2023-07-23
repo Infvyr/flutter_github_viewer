@@ -13,36 +13,20 @@ class SecureCredentialsStorage implements CredentialsStorage {
   Credentials? _cachedCredentials;
 
   @override
-  Future<Credentials?> read() {
+  Future<Credentials?> read() async {
     if (_cachedCredentials != null) {
-      return Future.value(_cachedCredentials);
-    }
-    return _storage.read(key: _key).then((json) {
-      if (json == null) {
-        return null;
-      }
-      try {
-        return _cachedCredentials = Credentials.fromJson(json);
-      } on FormatException {
-        return null;
-      }
-    });
-  }
-
-  /* Future<Credentials?> read() async {
-    if (_cachedCredentials != null) {
-      return Future.value(_cachedCredentials);
+      return _cachedCredentials;
     }
     final json = await _storage.read(key: _key);
     if (json == null) {
       return null;
     }
-    try{
+    try {
       return _cachedCredentials = Credentials.fromJson(json);
     } on FormatException {
       return null;
     }
-  } */
+  }
 
   @override
   Future<void> save(Credentials credentials) {

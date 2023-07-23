@@ -32,7 +32,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
     final redirectUrl =
         await authorizationCallback(_authenticator.getAuthorizationUrl(grant));
     final failureOrSuccess = await _authenticator.handleAuthorizationResponse(
-        grant, redirectUrl.queryParameters);
+      grant,
+      redirectUrl.queryParameters,
+    );
     state = failureOrSuccess.fold(
       (failure) => AuthState.failure(failure),
       (_) => const AuthState.authenticated(),
